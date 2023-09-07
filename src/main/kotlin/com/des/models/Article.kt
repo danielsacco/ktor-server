@@ -1,6 +1,6 @@
 package com.des.models
 
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.Table
 
 data class Article(val id: Int, val title: String, val body: String)
 

@@ -1,6 +1,10 @@
 package com.des.dao
 
 import com.des.models.Articles
+import com.des.models.db.Customers
+import com.des.models.db.Items
+import com.des.models.db.Orders
+import com.des.models.db.Products
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -14,6 +18,11 @@ object DatabaseFactory {
         val database = Database.connect(jdbcURL, driverClassName)
         transaction(database) {
             SchemaUtils.create(Articles)
+
+            SchemaUtils.create(Customers)
+            SchemaUtils.create(Products)
+            SchemaUtils.create(Items)
+            SchemaUtils.create(Orders)
         }
     }
 

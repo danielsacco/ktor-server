@@ -32,9 +32,9 @@ class OrderDAOImpl : OrderDAO {
 
     override suspend fun addItem(orderId: String, productId: String, amount: Int): OrderDTO? = dbQuery {
         //var item: Item? = null
-        Order.findById(UUID.fromString(orderId))?.let {orderEntity ->
+        Order.findById(orderId.toInt())?.let {orderEntity ->
 
-            Product.findById(UUID.fromString(productId))?.let { productEntity ->
+            Product.findById(productId.toInt())?.let { productEntity ->
                 //item =
                     Item.new {
                     order = orderEntity
@@ -44,7 +44,7 @@ class OrderDAOImpl : OrderDAO {
             }
         }
         //item?.toDTO()
-        Order.findById(UUID.fromString(orderId))?.toDTO()
+        Order.findById(orderId.toInt())?.toDTO()
     }
 
 }

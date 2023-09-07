@@ -9,5 +9,5 @@ interface ProductDAO {
 
     suspend fun products(): List<ProductDTO>
 
-    suspend fun findProduct(id: UUID) : ProductDTO?
+    suspend fun findProduct(id: Int) : ProductDTO?
 }

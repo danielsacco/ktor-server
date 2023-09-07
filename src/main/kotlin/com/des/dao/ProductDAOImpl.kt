@@ -21,7 +21,7 @@ class ProductDAOImpl : ProductDAO {
         Product.all().map { it.toDTO() }
     }
 
-    override suspend fun findProduct(id: UUID) : ProductDTO? = dbQuery {
+    override suspend fun findProduct(id: Int) : ProductDTO? = dbQuery {
         Product.findById(id)?.toDTO()
     }
 }

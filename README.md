@@ -12,5 +12,6 @@ REST Server template for developing services in Kotlin
 - Postgres/MySql instead of H2
 - Containerization
 - Authentication/Authorization ?
+- OpenAPI ?
 - Better error handling
 - Modularization, then remove DTO suffixes

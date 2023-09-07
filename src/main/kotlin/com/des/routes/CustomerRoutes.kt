@@ -16,13 +16,7 @@ fun Route.customerRouting() {
 
     route("/customer") {
         get {
-            val customers = customerDao.customers()
-            
-            if (customers.isNotEmpty()) {
-                call.respond(customers)
-            } else {
-                call.respondText("No customers found", status = HttpStatusCode.OK)
-            }
+            call.respond(customerDao.customers())
         }
         get("{username?}") {
             val username = call.parameters["username"] ?: return@get call.respondText(
@@ -43,8 +37,8 @@ fun Route.customerRouting() {
         }
         post {
             val customer = this.call.receive<CustomerDTO>()
-            customerDao.createCustomer(customer)
-            call.respond(customer)
+            val createdCustomer = customerDao.createCustomer(customer)
+            call.respond(HttpStatusCode.Created, createdCustomer!!)     // TODO What if not created ?
         }
         delete("{username?}") {
             val username = call.parameters["username"] ?: return@delete call.respond(HttpStatusCode.BadRequest)

@@ -27,12 +27,12 @@ class ProductDAOImpl : ProductDAO {
 }
 
 // dao Factory and initializer. TODO: Should be in a configuration file
-val productDAO: ProductDAO = ProductDAOImpl().apply {
-    runBlocking {
-        if(products().isEmpty()) {
-            createProduct(ProductDTO(name = "Papa", description = "Papa x Kg.", price = BigDecimal("123.45")))
-            createProduct(ProductDTO(name = "Batata", description = "Batata x Kg.", price = BigDecimal("456.78")))
-            createProduct(ProductDTO(name = "Queso Sardo", description = "Queso Sardo x Kg.", price = BigDecimal("9999.99")))
-        }
-    }
-}
+//val productDAO: ProductDAO = ProductDAOImpl().apply {
+//    runBlocking {
+//        if(products().isEmpty()) {
+//            createProduct(ProductDTO(name = "Papa", description = "Papa x Kg.", price = BigDecimal("123.45")))
+//            createProduct(ProductDTO(name = "Batata", description = "Batata x Kg.", price = BigDecimal("456.78")))
+//            createProduct(ProductDTO(name = "Queso Sardo", description = "Queso Sardo x Kg.", price = BigDecimal("9999.99")))
+//        }
+//    }
+//}

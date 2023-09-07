@@ -1,6 +1,7 @@
 package com.des
 
 import com.des.dao.DatabaseFactory
+import com.des.plugins.configureKoin
 import com.des.plugins.configureRouting
 import com.des.plugins.configureSerialization
 import io.ktor.server.application.*
@@ -10,6 +11,7 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
+    configureKoin()
     configureSerialization()
     configureRouting()
     DatabaseFactory.init()

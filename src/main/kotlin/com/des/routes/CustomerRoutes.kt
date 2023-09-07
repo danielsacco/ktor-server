@@ -1,15 +1,19 @@
 package com.des.routes
 
-import com.des.dao.customerDao
+import com.des.dao.CustomerDAO
 import com.des.models.CustomerDTO
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.inject
 
 
 fun Route.customerRouting() {
+
+    val customerDao by inject<CustomerDAO>()
+
     route("/customer") {
         get {
             val customers = customerDao.customers()

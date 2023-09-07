@@ -6,7 +6,6 @@ REST Server template for developing services in Kotlin
 - Exposed
 
 ## TODO
-- Koin
 - Unit test
 - Integration test
 - Connection pooling and catching

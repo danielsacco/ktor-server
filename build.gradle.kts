@@ -7,11 +7,15 @@ val h2_version: String by project
 val koin_version: String by project
 val hikaricp_version: String by project
 val ehcache_version: String by project
+val koin_ktor_version: String by project
+val koin_ksp_version: String by project
 
 plugins {
     kotlin("jvm") version "1.9.10"
     id("io.ktor.plugin") version "2.3.4"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
+    // KSP for Koin Annotations
+    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
 }
 
 group = "com.des"
@@ -35,6 +39,13 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation-jvm")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
     implementation("ch.qos.logback:logback-classic:$logback_version")
+
+    // Koin for Dependency Injection
+    implementation("io.insert-koin:koin-ktor:$koin_ktor_version") // Koin for Ktor
+    implementation("io.insert-koin:koin-logger-slf4j:$koin_ktor_version") // Koin Logger
+    implementation("io.insert-koin:koin-annotations:$koin_ksp_version") // Koin Annotations for KSP
+    ksp("io.insert-koin:koin-ksp-compiler:$koin_ksp_version") // Koin KSP Compiler for KSP
+
 
     // DB
     implementation("org.jetbrains.exposed:exposed-core:$exposed_version")

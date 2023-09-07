@@ -5,7 +5,6 @@ import com.des.models.CustomerDTO
 import com.des.models.db.Customer
 import com.des.models.db.Customers
 import com.des.models.db.toDTO
-import kotlinx.coroutines.runBlocking
 
 
 class CustomerDAOImpl : CustomerDAO {
@@ -47,12 +46,12 @@ class CustomerDAOImpl : CustomerDAO {
 }
 
 // dao Factory and initializer. TODO: Should be in a configuration file
-val customerDao: CustomerDAO = CustomerDAOImpl().apply {
-    runBlocking {
-        if(customers().isEmpty()) {
-            createCustomer(CustomerDTO(username = "johndoe", firstName = "John", lastName = "Doe", email = "john.doe@mail.com"))
-            createCustomer(CustomerDTO(username = "danielsacco", firstName = "Daniel", lastName = "Sacco", email = "daniel.sacco@mail.com"))
-            createCustomer(CustomerDTO(username = "flea", firstName = "Michael Peter", lastName = "Balzary", email = "flea.thebest@mail.com"))
-        }
-    }
-}
+//val customerDao: CustomerDAO = CustomerDAOImpl().apply {
+//    runBlocking {
+//        if(customers().isEmpty()) {
+//            createCustomer(CustomerDTO(username = "johndoe", firstName = "John", lastName = "Doe", email = "john.doe@mail.com"))
+//            createCustomer(CustomerDTO(username = "danielsacco", firstName = "Daniel", lastName = "Sacco", email = "daniel.sacco@mail.com"))
+//            createCustomer(CustomerDTO(username = "flea", firstName = "Michael Peter", lastName = "Balzary", email = "flea.thebest@mail.com"))
+//        }
+//    }
+//}

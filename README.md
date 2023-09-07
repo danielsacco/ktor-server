@@ -1,5 +1,9 @@
 # Ktor Server
-REST Server template
+REST Server template for developing services in Kotlin
+
+## Using
+- Ktor
+- Exposed
 
 ## TODO
 - Koin

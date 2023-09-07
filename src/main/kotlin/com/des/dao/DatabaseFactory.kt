@@ -1,6 +1,5 @@
 package com.des.dao
 
-import com.des.models.Articles
 import com.des.models.db.Customers
 import com.des.models.db.Items
 import com.des.models.db.Orders
@@ -17,8 +16,6 @@ object DatabaseFactory {
         val jdbcURL = "jdbc:h2:file:./build/db"
         val database = Database.connect(jdbcURL, driverClassName)
         transaction(database) {
-            SchemaUtils.create(Articles)
-
             SchemaUtils.create(Customers)
             SchemaUtils.create(Products)
             SchemaUtils.create(Items)

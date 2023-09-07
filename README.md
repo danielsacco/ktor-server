@@ -2,5 +2,10 @@
 REST Server template
 
 ## TODO
-- Persistir Customers y Orders en BD
-- Eliminar templates y plugin
+- Integer ID instead of UUID (Easier to test)
+- BigDecimal instead of Double (requires custom serialization)
+- Unit test
+- Integration test
+- Better error handling
+- Modularization
+- Koin

@@ -35,6 +35,12 @@ fun Route.customerRouting() {
             )
             call.respond(customer)
         }
+        get("/{customerId}/orders") {
+            val customerId = call.parameters["customerId"] ?: return@get call.respondText(
+                text ="Missing customer ID",
+                status = HttpStatusCode.BadRequest)
+            call.respond(customerDao.customerOrders(customerId))
+        }
         post {
             val customer = this.call.receive<CustomerDTO>()
             customerDao.createCustomer(customer)

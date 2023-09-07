@@ -25,10 +25,6 @@ class OrderDAOImpl : OrderDAO {
         newOrder.toDTO()
     }
 
-//    suspend fun findOrder(orderId: String) = dbQuery {
-//        // TODO
-//    }
-
     override suspend fun addItem(orderId: String, productId: String, amount: Int): OrderDTO? = dbQuery {
         //var item: Item? = null
         Order.findById(orderId.toInt())?.let {orderEntity ->

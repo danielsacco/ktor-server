@@ -2,6 +2,7 @@ package com.des.dao
 
 import com.des.dao.DatabaseFactory.dbQuery
 import com.des.models.CustomerDTO
+import com.des.models.OrderDTO
 import com.des.models.db.Customer
 import com.des.models.db.Customers
 import com.des.models.db.toDTO
@@ -42,6 +43,13 @@ class CustomerDAOImpl : CustomerDAO {
             false
         }
 
+    }
+
+    override suspend fun customerOrders(customerId: String): List<OrderDTO> = dbQuery {
+        Customer.findById(customerId.toInt())
+            ?.orders
+            ?.map { it.toDTO() }
+            ?: listOf()
     }
 }
 

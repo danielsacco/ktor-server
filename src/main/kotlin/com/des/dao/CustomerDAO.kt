@@ -1,6 +1,7 @@
 package com.des.dao
 
 import com.des.models.CustomerDTO
+import com.des.models.OrderDTO
 
 interface CustomerDAO {
 
@@ -11,5 +12,7 @@ interface CustomerDAO {
     suspend fun createCustomer(customer: CustomerDTO): CustomerDTO?
 
     suspend fun deleteCustomer(username: String): Boolean
+
+    suspend fun customerOrders(customerId: String): List<OrderDTO>
 }
 

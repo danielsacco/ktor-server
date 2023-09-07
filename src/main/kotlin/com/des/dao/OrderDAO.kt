@@ -9,4 +9,5 @@ interface OrderDAO {
     suspend fun createOrder(order: OrderDTO) : OrderDTO
 
     suspend fun addItem(orderId: String, productId: String, amount: Int): OrderDTO?
+
 }

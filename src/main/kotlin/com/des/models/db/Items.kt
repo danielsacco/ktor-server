@@ -20,6 +20,7 @@ class Item(id: EntityID<Int>) : IntEntity(id) {
 }
 
 fun Item.toDTO() : ItemDTO = ItemDTO(
-    productId = this.product.id.toString(),
+    product = this.product.toDTO(),
     amount = this.quantity,
+    id = this.id.value
 )

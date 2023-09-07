@@ -13,5 +13,4 @@ REST Server template for developing services in Kotlin
 - Containerization
 - Authentication/Authorization ?
 - Better error handling
-- Modularization
-- Dedicated DTO for adding items to an order, ItemDTO should be used for the whole Item data
+- Modularization, then remove DTO suffixes

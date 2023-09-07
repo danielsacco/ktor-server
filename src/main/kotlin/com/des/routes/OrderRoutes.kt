@@ -1,7 +1,7 @@
 package com.des.routes
 
 import com.des.dao.OrderDAO
-import com.des.models.ItemDTO
+import com.des.models.ItemAddDTO
 import com.des.models.OrderDTO
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -27,7 +27,7 @@ fun Route.orderRouting() {
             val orderId = call.parameters["orderId"] ?: return@put call.respondText(
                 text ="Missing order ID",
                 status = HttpStatusCode.BadRequest)
-            val item = call.receive<ItemDTO>()
+            val item = call.receive<ItemAddDTO>()
             val order = ordersDao.addItem(orderId = orderId, productId = item.productId, amount = item.amount)
                 ?: return@put call.respondText(
                     text ="Order or Product not found",

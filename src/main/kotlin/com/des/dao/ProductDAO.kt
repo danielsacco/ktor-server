@@ -1,7 +1,6 @@
 package com.des.dao
 
 import com.des.models.ProductDTO
-import java.util.*
 
 interface ProductDAO {
 

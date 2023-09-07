@@ -5,13 +5,13 @@ import com.des.models.ProductDTO
 import com.des.models.db.Product
 import com.des.models.db.toDTO
 import kotlinx.coroutines.runBlocking
-import java.util.*
+import java.math.BigDecimal
 
 class ProductDAOImpl : ProductDAO {
     override suspend fun createProduct(product: ProductDTO): ProductDTO = dbQuery {
         val newProduct = Product.new {
             name = product.name
-            price = product.price.toBigDecimal()
+            price = product.price
             description = product.description
         }
         newProduct.toDTO()
@@ -30,9 +30,9 @@ class ProductDAOImpl : ProductDAO {
 val productDAO: ProductDAO = ProductDAOImpl().apply {
     runBlocking {
         if(products().isEmpty()) {
-            createProduct(ProductDTO(name = "Papa", description = "Papa x Kg.", price = 123.45))
-            createProduct(ProductDTO(name = "Batata", description = "Batata x Kg.", price = 456.78))
-            createProduct(ProductDTO(name = "Queso Sardo", description = "Queso Sardo x Kg.", price = 9999.99))
+            createProduct(ProductDTO(name = "Papa", description = "Papa x Kg.", price = BigDecimal("123.45")))
+            createProduct(ProductDTO(name = "Batata", description = "Batata x Kg.", price = BigDecimal("456.78")))
+            createProduct(ProductDTO(name = "Queso Sardo", description = "Queso Sardo x Kg.", price = BigDecimal("9999.99")))
         }
     }
 }

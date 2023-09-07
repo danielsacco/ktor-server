@@ -20,7 +20,7 @@ class Product(id: EntityID<Int>) : IntEntity(id) {
 }
 
 fun Product.toDTO() = ProductDTO(
-    price = price.toDouble(),
+    price = price,
     name = name,
     description = description,
     id = id.value

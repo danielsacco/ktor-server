@@ -1,19 +1,18 @@
 package com.des.dao.dbimpl
 
-import com.des.dao.DatabaseFactoryImpl.dbQuery
+import com.des.dao.DatabaseFactory
 import com.des.dao.OrderDAO
 import com.des.models.OrderDTO
 import com.des.models.db.*
 import java.time.LocalDateTime
 
-class OrderDAOImpl : OrderDAO {
+class OrderDAOImpl(private val databaseFactory: DatabaseFactory) : OrderDAO {
 
-
-    override suspend fun orders(): List<OrderDTO> = dbQuery {
+    override suspend fun orders(): List<OrderDTO> = databaseFactory.dbQuery {
         Order.all().map { it.toDTO() }
     }
 
-    override suspend fun createOrder(order: OrderDTO): OrderDTO = dbQuery {
+    override suspend fun createOrder(order: OrderDTO): OrderDTO = databaseFactory.dbQuery {
         val customer = Customer.find {
             Customers.username eq order.customerUserName
         }.single()    // TODO Fix this in case the customer does not exist or is duplicated
@@ -26,12 +25,10 @@ class OrderDAOImpl : OrderDAO {
         newOrder.toDTO()
     }
 
-    override suspend fun addItem(orderId: String, productId: String, amount: Int): OrderDTO? = dbQuery {
-        //var item: Item? = null
+    override suspend fun addItem(orderId: String, productId: String, amount: Int): OrderDTO? = databaseFactory.dbQuery {
         Order.findById(orderId.toInt())?.let {orderEntity ->
 
             Product.findById(productId.toInt())?.let { productEntity ->
-                //item =
                     Item.new {
                     order = orderEntity
                     product = productEntity
@@ -39,7 +36,6 @@ class OrderDAOImpl : OrderDAO {
                 }
             }
         }
-        //item?.toDTO()
         Order.findById(orderId.toInt())?.toDTO()
     }
 

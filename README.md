@@ -6,7 +6,7 @@ REST Server template for developing services in Kotlin
 - Exposed
 
 ## TODO
-- Unit test
+- Unit test ????
 - Integration test
 - Catching -> It makes no sense in this project
 - Postgres/MySql instead of H2

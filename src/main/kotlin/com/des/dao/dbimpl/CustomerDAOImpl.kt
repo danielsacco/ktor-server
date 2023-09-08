@@ -8,7 +8,6 @@ import com.des.models.db.Customer
 import com.des.models.db.Customers
 import com.des.models.db.toDTO
 
-// TODO Inyectar el factory en los otros DAOs
 class CustomerDAOImpl(private val databaseFactory: DatabaseFactory) : CustomerDAO {
 
     override suspend fun customers(): List<CustomerDTO> = databaseFactory.dbQuery {

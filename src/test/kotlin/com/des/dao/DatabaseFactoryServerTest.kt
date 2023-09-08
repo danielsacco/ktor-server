@@ -12,9 +12,10 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
-import java.io.File
 
-class DatabaseFactoryImpl(private val config: ApplicationConfig) : DatabaseFactory {
+class DatabaseFactoryServerTest(private val config: ApplicationConfig) : DatabaseFactory {
+
+    lateinit var source: HikariDataSource
 
     private fun createHikariDataSource(
         url: String,
@@ -30,11 +31,9 @@ class DatabaseFactoryImpl(private val config: ApplicationConfig) : DatabaseFacto
 
     override fun init() {
         val driverClassName = config.property("storage.driverClassName").getString()
-        val jdbcURL = config.property("storage.jdbcURL").getString() +
-                (config.propertyOrNull("storage.dbFilePath")?.getString()?.let {
-                    File(it).canonicalFile.absolutePath
-                } ?: "")
-        val database = Database.connect(createHikariDataSource(url = jdbcURL, driver = driverClassName))
+        val jdbcURL = config.property("storage.jdbcURL").getString()
+        source = createHikariDataSource(jdbcURL, driverClassName)
+        val database = Database.connect(source)
         transaction(database) {
             SchemaUtils.create(Customers)
             SchemaUtils.create(Products)

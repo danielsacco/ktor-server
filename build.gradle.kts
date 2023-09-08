@@ -68,4 +68,10 @@ dependencies {
     // https://ktor.io/docs/testing.html
     testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlin_version")
+
+    // Koin testing tools
+    testImplementation("io.insert-koin:koin-test:$koin_version")
+    // Needed JUnit version
+    testImplementation("io.insert-koin:koin-test-junit4:$koin_version")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }

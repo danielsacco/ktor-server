@@ -15,16 +15,11 @@ fun Route.productRouting() {
     route("/product") {
         get {
             val products = productDao.products()
-
-            if (products.isNotEmpty()) {
-                call.respond(products)
-            } else {
-                call.respondText("No products found", status = HttpStatusCode.OK)
-            }
+            call.respond(products)
         }
         post {
             val product = this.call.receive<ProductDTO>()
-            call.respond(productDao.createProduct(product))
+            call.respond(message = productDao.createProduct(product), status = HttpStatusCode.Created)
         }
 
     }

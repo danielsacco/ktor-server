@@ -8,8 +8,11 @@ import com.des.dao.dbimpl.CustomerDAOImplTest.Companion.testCustomer
 import com.des.dao.dbimpl.ProductDAOImplTest.Companion.testProduct
 import com.des.models.OrderDTO
 import kotlinx.coroutines.test.runTest
-import org.junit.*
+import org.junit.After
 import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.koin.core.component.inject
 import org.koin.dsl.module
 import org.koin.test.KoinTest

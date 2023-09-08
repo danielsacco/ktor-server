@@ -20,8 +20,7 @@ fun Route.orderRouting() {
         }
         post {
             val order = this.call.receive<OrderDTO>()
-            //ordersDAO.createOrder(order)
-            call.respond(ordersDao.createOrder(order))
+            call.respond(status = HttpStatusCode.Created, message = ordersDao.createOrder(order))
         }
         put("/{orderId}/item") {
             val orderId = call.parameters["orderId"] ?: return@put call.respondText(
@@ -37,29 +36,3 @@ fun Route.orderRouting() {
     }
 
 }
-
-//fun Route.getOrderRoute() {
-//    get("/order/{id?}") {
-//        val id = call.parameters["id"] ?: return@get call.respondText(
-//            text ="Bad Request",
-//            status = HttpStatusCode.BadRequest)
-//        val order = orderStorage.find { it.orderId == id } ?: return@get call.respondText(
-//            text = "Order not found",
-//            status = HttpStatusCode.NotFound)
-//        call.respond(order)
-//    }
-//}
-
-// TODO No borrar esta logica
-//fun Route.totalizeOrderRoute() {
-//    get("/order/{id?}/total") {
-//        val id = call.parameters["id"] ?: return@get call.respondText(
-//            text ="Bad Request",
-//            status = HttpStatusCode.BadRequest)
-//        val order = orderStorage.find { it.orderId == id } ?: return@get call.respondText(
-//            text = "Order not found",
-//            status = HttpStatusCode.NotFound)
-//        val total = order.contents.sumOf { it.amount * it.price }
-//        call.respond(total)
-//    }
-//}

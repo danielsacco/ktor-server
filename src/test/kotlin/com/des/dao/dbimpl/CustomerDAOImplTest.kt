@@ -3,8 +3,6 @@ package com.des.dao.dbimpl
 import com.des.dao.CustomerDAO
 import com.des.dao.DatabaseFactoryUnitTest
 import com.des.dao.OrderDAO
-import com.des.dao.ProductDAO
-import com.des.dao.dbimpl.ProductDAOImplTest.Companion.testProduct
 import com.des.models.CustomerDTO
 import com.des.models.OrderDTO
 import kotlinx.coroutines.test.runTest

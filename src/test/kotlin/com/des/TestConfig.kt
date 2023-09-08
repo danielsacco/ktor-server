@@ -3,7 +3,6 @@ package com.des
 import com.des.dao.*
 import com.des.models.CustomerDTO
 import com.des.models.OrderDTO
-import com.des.plugins.configureKoin
 import com.des.plugins.configureRouting
 import com.des.plugins.configureSerialization
 import io.ktor.server.application.*
@@ -11,21 +10,21 @@ import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
 
-fun Application.module() {
+fun Application.testModule() {
     configureTestKoin()
     configureSerialization()
     configureRouting()
-    DatabaseFactory.init()
+    DatabaseFactoryImpl.init(environment.config)
 }
 
 fun Application.configureTestKoin() {
     install(Koin) {
         slf4jLogger()
-        modules(testModule)
+        modules(testKoinModule)
     }
 }
 
-val testModule = module {
+val testKoinModule = module {
     single<CustomerDAO> { CustomerDaoTest() }
     //single<ProductDAO> { ProductDAOImpl() }
     //single<OrderDAO> { OrderDAOImpl() }

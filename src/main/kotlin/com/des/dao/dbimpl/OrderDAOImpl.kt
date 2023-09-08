@@ -1,6 +1,7 @@
-package com.des.dao
+package com.des.dao.dbimpl
 
-import com.des.dao.DatabaseFactory.dbQuery
+import com.des.dao.DatabaseFactoryImpl.dbQuery
+import com.des.dao.OrderDAO
 import com.des.models.OrderDTO
 import com.des.models.db.*
 import java.time.LocalDateTime

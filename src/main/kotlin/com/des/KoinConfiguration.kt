@@ -1,6 +1,9 @@
-package com.des.plugins
+package com.des
 
 import com.des.dao.*
+import com.des.dao.dbimpl.CustomerDAOImpl
+import com.des.dao.dbimpl.OrderDAOImpl
+import com.des.dao.dbimpl.ProductDAOImpl
 import io.ktor.server.application.*
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
@@ -14,7 +17,8 @@ fun Application.configureKoin() {
 }
 
 val appModule = module {
-    single<CustomerDAO> { CustomerDAOImpl() }
+    single<DatabaseFactory> { DatabaseFactoryImpl }
+    single<CustomerDAO> { CustomerDAOImpl(get()) }
     single<ProductDAO> { ProductDAOImpl() }
     single<OrderDAO> { OrderDAOImpl() }
 }

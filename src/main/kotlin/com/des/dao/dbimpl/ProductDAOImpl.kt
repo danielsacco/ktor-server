@@ -1,11 +1,10 @@
-package com.des.dao
+package com.des.dao.dbimpl
 
-import com.des.dao.DatabaseFactory.dbQuery
+import com.des.dao.DatabaseFactoryImpl.dbQuery
+import com.des.dao.ProductDAO
 import com.des.models.ProductDTO
 import com.des.models.db.Product
 import com.des.models.db.toDTO
-import kotlinx.coroutines.runBlocking
-import java.math.BigDecimal
 
 class ProductDAOImpl : ProductDAO {
     override suspend fun createProduct(product: ProductDTO): ProductDTO = dbQuery {

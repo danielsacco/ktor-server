@@ -8,7 +8,7 @@ REST Server template for developing services in Kotlin
 ## TODO
 - Unit test
 - Integration test
-- Connection pooling and catching
+- Catching -> It makes no sense in this project
 - Postgres/MySql instead of H2
 - Containerization
 - Authentication/Authorization ?

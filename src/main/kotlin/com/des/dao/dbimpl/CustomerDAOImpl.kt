@@ -1,25 +1,26 @@
-package com.des.dao
+package com.des.dao.dbimpl
 
-import com.des.dao.DatabaseFactory.dbQuery
+import com.des.dao.CustomerDAO
+import com.des.dao.DatabaseFactory
 import com.des.models.CustomerDTO
 import com.des.models.OrderDTO
 import com.des.models.db.Customer
 import com.des.models.db.Customers
 import com.des.models.db.toDTO
 
+// TODO Inyectar el factory en los otros DAOs
+class CustomerDAOImpl(private val databaseFactory: DatabaseFactory) : CustomerDAO {
 
-class CustomerDAOImpl : CustomerDAO {
-
-    override suspend fun customers(): List<CustomerDTO> = dbQuery {
+    override suspend fun customers(): List<CustomerDTO> = databaseFactory.dbQuery {
         Customer.all().map { it.toDTO() }
     }
     
-    override suspend fun findCustomerByUsername(username: String): CustomerDTO? = dbQuery {
+    override suspend fun findCustomerByUsername(username: String): CustomerDTO? = databaseFactory.dbQuery {
         Customer.find { Customers.username eq username }
             .singleOrNull()?.toDTO()
     }
     
-    override suspend fun createCustomer(customer: CustomerDTO): CustomerDTO? = dbQuery {
+    override suspend fun createCustomer(customer: CustomerDTO): CustomerDTO? = databaseFactory.dbQuery {
         // TODO username should be unique
         //Customer.find { Customers.username eq customer.username }
 
@@ -32,7 +33,7 @@ class CustomerDAOImpl : CustomerDAO {
         newCustomer.toDTO()
     }
 
-    override suspend fun deleteCustomer(username: String): Boolean = dbQuery {
+    override suspend fun deleteCustomer(username: String): Boolean = databaseFactory.dbQuery {
         // TODO Should check whether the customer has opened orders
         val customer = Customer.find { Customers.username eq username }.singleOrNull()
 
@@ -45,7 +46,7 @@ class CustomerDAOImpl : CustomerDAO {
 
     }
 
-    override suspend fun customerOrders(customerId: String): List<OrderDTO> = dbQuery {
+    override suspend fun customerOrders(customerId: String): List<OrderDTO> = databaseFactory.dbQuery {
         Customer.findById(customerId.toInt())
             ?.orders
             ?.map { it.toDTO() }

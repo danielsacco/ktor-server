@@ -52,14 +52,3 @@ class CustomerDAOImpl(private val databaseFactory: DatabaseFactory) : CustomerDA
             ?: listOf()
     }
 }
-
-// dao Factory and initializer. TODO: Should be in a configuration file
-//val customerDao: CustomerDAO = CustomerDAOImpl().apply {
-//    runBlocking {
-//        if(customers().isEmpty()) {
-//            createCustomer(CustomerDTO(username = "johndoe", firstName = "John", lastName = "Doe", email = "john.doe@mail.com"))
-//            createCustomer(CustomerDTO(username = "danielsacco", firstName = "Daniel", lastName = "Sacco", email = "daniel.sacco@mail.com"))
-//            createCustomer(CustomerDTO(username = "flea", firstName = "Michael Peter", lastName = "Balzary", email = "flea.thebest@mail.com"))
-//        }
-//    }
-//}

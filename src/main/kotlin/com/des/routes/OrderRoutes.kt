@@ -28,7 +28,7 @@ fun Route.orderRouting() {
                 text ="Missing order ID",
                 status = HttpStatusCode.BadRequest)
             val item = call.receive<ItemAddDTO>()
-            val order = ordersDao.addItem(orderId = orderId, productId = item.productId, amount = item.amount)
+            val order = ordersDao.addItem(orderId = orderId.toInt(), productId = item.productId, amount = item.amount)
                 ?: return@put call.respondText(
                     text ="Order or Product not found",
                     status = HttpStatusCode.BadRequest)

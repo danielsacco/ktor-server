@@ -25,8 +25,8 @@ class OrderDAOImpl(private val databaseFactory: DatabaseFactory) : OrderDAO {
         newOrder.toDTO()
     }
 
-    override suspend fun addItem(orderId: String, productId: String, amount: Int): OrderDTO? = databaseFactory.dbQuery {
-        Order.findById(orderId.toInt())?.let {orderEntity ->
+    override suspend fun addItem(orderId: Int, productId: Int, amount: Int): OrderDTO? = databaseFactory.dbQuery {
+        Order.findById(orderId)?.let {orderEntity ->
 
             Product.findById(productId.toInt())?.let { productEntity ->
                     Item.new {
@@ -36,7 +36,10 @@ class OrderDAOImpl(private val databaseFactory: DatabaseFactory) : OrderDAO {
                 }
             }
         }
-        Order.findById(orderId.toInt())?.toDTO()
+        Order.findById(orderId)?.toDTO()
     }
 
+    override suspend fun findOrder(orderId: Int): OrderDTO? = databaseFactory.dbQuery {
+        Order.findById(orderId)?.toDTO()
+    }
 }

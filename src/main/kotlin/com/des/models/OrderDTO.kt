@@ -9,4 +9,4 @@ data class OrderDTO(val customerUserName: String, val items: List<ItemDTO> = lis
 data class ItemDTO(val product: ProductDTO, val amount: Int, val id: Int? = null)
 
 @Serializable
-data class ItemAddDTO(val productId: String, val amount: Int)
+data class ItemAddDTO(val productId: Int, val amount: Int)

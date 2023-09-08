@@ -22,18 +22,12 @@ class CustomerRoutesTest {
 
     @Test
     fun `When queried for root content Then NotFound is obtained`() = testApplication {
-        environment {
-            config = ApplicationConfig("application-test.conf")
-        }
         val response = client.get("/")
         assertEquals(HttpStatusCode.NotFound, response.status)
     }
 
     @Test
     fun `When queried for customers Then am empty list is obtained`() = testApplication {
-        environment {
-            config = ApplicationConfig("application-test.conf")
-        }
         val response = client.get("/customer")
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals("[]", response.bodyAsText())
@@ -41,9 +35,6 @@ class CustomerRoutesTest {
 
     @Test
     fun `When posting a customer Then it is created`() = testApplication {
-        environment {
-            config = ApplicationConfig("application-test.conf")
-        }
         val client = createClient {
             install(ContentNegotiation) {
                 json()
@@ -62,9 +53,6 @@ class CustomerRoutesTest {
 
     @Test
     fun `When querying an existing customer by name Then it is found`() = testApplication {
-        environment {
-            config = ApplicationConfig("application-test.conf")
-        }
         val client = createClient {
             install(ContentNegotiation) {
                 json()
@@ -85,9 +73,6 @@ class CustomerRoutesTest {
 
     @Test
     fun `When querying a non-existing customer by name Then an error is returned`() = testApplication {
-        environment {
-            config = ApplicationConfig("application-test.conf")
-        }
         val client = createClient {
             install(ContentNegotiation) {
                 json()

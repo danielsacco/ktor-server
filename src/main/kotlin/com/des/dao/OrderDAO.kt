@@ -1,15 +1,15 @@
 package com.des.dao
 
-import com.des.models.OrderDTO
+import com.des.models.Order
 
 interface OrderDAO {
 
-    suspend fun orders() : List<OrderDTO>
+    suspend fun orders() : List<Order>
 
-    suspend fun createOrder(order: OrderDTO) : OrderDTO
+    suspend fun createOrder(order: Order) : Order
 
-    suspend fun addItem(orderId: Int, productId: Int, amount: Int): OrderDTO?
+    suspend fun addItem(orderId: Int, productId: Int, amount: Int): Order?
 
-    suspend fun findOrder(orderId: Int): OrderDTO?
+    suspend fun findOrder(orderId: Int): Order?
 
 }

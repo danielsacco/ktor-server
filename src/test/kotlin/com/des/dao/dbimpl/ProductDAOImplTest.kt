@@ -2,7 +2,7 @@ package com.des.dao.dbimpl
 
 import com.des.dao.DatabaseFactoryUnitTest
 import com.des.dao.ProductDAO
-import com.des.models.ProductDTO
+import com.des.models.Product
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertTrue
@@ -75,7 +75,7 @@ class ProductDAOImplTest : KoinTest {
         const val DESCRIPTION = "Para engordar"
         val testPrice = BigDecimal("12.21")
 
-        val testProduct = ProductDTO(
+        val testProduct = Product(
             name = NAME,
             description = DESCRIPTION,
             price = testPrice

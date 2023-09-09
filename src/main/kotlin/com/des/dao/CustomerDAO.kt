@@ -1,18 +1,18 @@
 package com.des.dao
 
-import com.des.models.CustomerDTO
-import com.des.models.OrderDTO
+import com.des.models.Customer
+import com.des.models.Order
 
 interface CustomerDAO {
 
-    suspend fun customers(): List<CustomerDTO>
+    suspend fun customers(): List<Customer>
 
-    suspend fun findCustomerByUsername(username: String): CustomerDTO?
+    suspend fun findCustomerByUsername(username: String): Customer?
 
-    suspend fun createCustomer(customer: CustomerDTO): CustomerDTO?
+    suspend fun createCustomer(customer: Customer): Customer?
 
     suspend fun deleteCustomer(username: String): Boolean
 
-    suspend fun customerOrders(customerId: String): List<OrderDTO>
+    suspend fun customerOrders(customerId: String): List<Order>
 }
 

@@ -3,8 +3,8 @@ package com.des.dao.dbimpl
 import com.des.dao.CustomerDAO
 import com.des.dao.DatabaseFactoryUnitTest
 import com.des.dao.OrderDAO
-import com.des.models.CustomerDTO
-import com.des.models.OrderDTO
+import com.des.models.Customer
+import com.des.models.Order
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.*
@@ -97,7 +97,7 @@ class CustomerDAOImplTest : KoinTest {
     fun `Given an existing order for a customer When queried Then it returns the order into the response`() = runTest {
         customerDao.createCustomer(testCustomer)
         orderDao.createOrder(
-            OrderDTO(
+            Order(
                 customerUserName = testCustomer.username,
             )
         )
@@ -114,7 +114,7 @@ class CustomerDAOImplTest : KoinTest {
         const val LASTNAME = "Doe"
         const val EMAIL = "john.doe@mail.com"
 
-        val testCustomer = CustomerDTO(
+        val testCustomer = Customer(
             username = USERNAME,
             firstName = FIRSTNAME,
             lastName = LASTNAME,

@@ -1,7 +1,7 @@
 package com.des.routes
 
 import com.des.dao.ProductDAO
-import com.des.models.ProductDTO
+import com.des.models.Product
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -18,7 +18,7 @@ fun Route.productRouting() {
             call.respond(products)
         }
         post {
-            val product = this.call.receive<ProductDTO>()
+            val product = this.call.receive<Product>()
             call.respond(message = productDao.createProduct(product), status = HttpStatusCode.Created)
         }
 

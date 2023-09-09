@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
 @Serializable
-class ProductDTO(
+class Product(
     @Serializable(with = BigDecimalSerializer::class)
     val price: BigDecimal,
     val name: String,

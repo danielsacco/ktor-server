@@ -1,7 +1,7 @@
 package com.des.routes
 
 import com.des.dao.CustomerDAO
-import com.des.models.CustomerDTO
+import com.des.models.Customer
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -36,7 +36,7 @@ fun Route.customerRouting() {
             call.respond(customerDao.customerOrders(customerId))
         }
         post {
-            val customer = this.call.receive<CustomerDTO>()
+            val customer = this.call.receive<Customer>()
             val createdCustomer = customerDao.createCustomer(customer)
             call.respond(HttpStatusCode.Created, createdCustomer!!)     // TODO What if not created ?
         }

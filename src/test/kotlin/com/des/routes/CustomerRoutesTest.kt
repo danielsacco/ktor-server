@@ -1,7 +1,7 @@
 package com.des.routes
 
-import com.des.models.CustomerDTO
-import com.des.models.OrderDTO
+import com.des.models.Customer
+import com.des.models.Order
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
@@ -120,19 +120,19 @@ class CustomerRoutesTest {
 
         val orderCreationResponse = client.post("/order") {
             contentType(ContentType.Application.Json)
-            setBody(OrderDTO(customerUserName = testCustomer.username))
+            setBody(Order(customerUserName = testCustomer.username))
         }
         assertEquals(HttpStatusCode.Created, orderCreationResponse.status)
 
-        val customer = customerCreationResponse.body() as CustomerDTO
+        val customer = customerCreationResponse.body() as Customer
         val response = client.get("/customer/${customer.id}/orders")
-        val orders = response.body() as List<OrderDTO>
+        val orders = response.body() as List<Order>
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals(1, orders.size)
     }
 
 
     companion object {
-        val testCustomer = CustomerDTO(username = "user", firstName = "name", lastName = "surname", email = "email")
+        val testCustomer = Customer(username = "user", firstName = "name", lastName = "surname", email = "email")
     }
 }

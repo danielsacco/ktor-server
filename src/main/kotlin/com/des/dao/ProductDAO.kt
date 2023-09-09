@@ -1,12 +1,12 @@
 package com.des.dao
 
-import com.des.models.ProductDTO
+import com.des.models.Product
 
 interface ProductDAO {
 
-    suspend fun createProduct(product: ProductDTO): ProductDTO
+    suspend fun createProduct(product: Product): Product
 
-    suspend fun products(): List<ProductDTO>
+    suspend fun products(): List<Product>
 
-    suspend fun findProduct(id: Int) : ProductDTO?
+    suspend fun findProduct(id: Int) : Product?
 }

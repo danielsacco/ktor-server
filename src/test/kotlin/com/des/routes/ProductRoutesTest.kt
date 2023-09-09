@@ -1,6 +1,6 @@
 package com.des.routes;
 
-import com.des.models.ProductDTO
+import com.des.models.Product
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
@@ -64,17 +64,17 @@ class ProductRoutesTest {
 
         val response = client.get("/product")
         assertEquals(HttpStatusCode.OK, response.status)
-        val result = response.body() as List<ProductDTO>
+        val result = response.body() as List<Product>
         assertEquals(2, result.size)
     }
 
     companion object {
-        val testProduct = ProductDTO(
+        val testProduct = Product(
             price = BigDecimal("22.11"),
             name = "Arroz x Kg.",
             description = "Cereal"
         )
-        val anotherProduct = ProductDTO(
+        val anotherProduct = Product(
             price = BigDecimal("11.11"),
             name = "Papa x Kg.",
             description = "Tubérculo"

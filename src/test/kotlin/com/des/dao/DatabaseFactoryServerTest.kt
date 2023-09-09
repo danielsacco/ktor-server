@@ -1,9 +1,9 @@
 package com.des.dao
 
-import com.des.models.db.Customers
-import com.des.models.db.Items
-import com.des.models.db.Orders
-import com.des.models.db.Products
+import com.des.models.db.CustomersTable
+import com.des.models.db.ItemsTable
+import com.des.models.db.OrdersTable
+import com.des.models.db.ProductsTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.config.*
@@ -35,10 +35,10 @@ class DatabaseFactoryServerTest(private val config: ApplicationConfig) : Databas
         source = createHikariDataSource(jdbcURL, driverClassName)
         val database = Database.connect(source)
         transaction(database) {
-            SchemaUtils.create(Customers)
-            SchemaUtils.create(Products)
-            SchemaUtils.create(Items)
-            SchemaUtils.create(Orders)
+            SchemaUtils.create(CustomersTable)
+            SchemaUtils.create(ProductsTable)
+            SchemaUtils.create(ItemsTable)
+            SchemaUtils.create(OrdersTable)
         }
     }
 

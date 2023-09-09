@@ -6,7 +6,7 @@ import com.des.dao.OrderDAO
 import com.des.dao.ProductDAO
 import com.des.dao.dbimpl.CustomerDAOImplTest.Companion.testCustomer
 import com.des.dao.dbimpl.ProductDAOImplTest.Companion.testProduct
-import com.des.models.OrderDTO
+import com.des.models.Order
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertTrue
@@ -58,7 +58,7 @@ class OrderDAOImplTest : KoinTest {
         customerDao.createCustomer(testCustomer)
         val productId = productDao.createProduct(testProduct).id!!
         val order = orderDao.createOrder(
-            OrderDTO(
+            Order(
                 customerUserName = testCustomer.username,
             )
         )

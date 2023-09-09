@@ -1,8 +1,8 @@
 package com.des.routes
 
-import com.des.models.ItemAddDTO
-import com.des.models.OrderDTO
-import com.des.models.ProductDTO
+import com.des.models.ItemAdd
+import com.des.models.Order
+import com.des.models.Product
 import com.des.routes.CustomerRoutesTest.Companion.testCustomer
 import com.des.routes.ProductRoutesTest.Companion.testProduct
 import io.ktor.client.call.*
@@ -45,10 +45,10 @@ class OrderRoutesTest {
 
         val response = client.post("/order") {
             contentType(ContentType.Application.Json)
-            setBody(OrderDTO(customerUserName = testCustomer.username))
+            setBody(Order(customerUserName = testCustomer.username))
         }
         assertEquals(HttpStatusCode.Created, response.status)
-        val result = response.body() as OrderDTO
+        val result = response.body() as Order
         assertEquals(testCustomer.username, result.customerUserName)
         assertEquals(0, result.items.size)
     }
@@ -73,19 +73,19 @@ class OrderRoutesTest {
 
         val orderCreationResponse = client.post("/order") {
             contentType(ContentType.Application.Json)
-            setBody(OrderDTO(customerUserName = testCustomer.username))
+            setBody(Order(customerUserName = testCustomer.username))
         }
         assertEquals(HttpStatusCode.Created, orderCreationResponse.status)
 
-        val order = orderCreationResponse.body() as OrderDTO
-        val product = productCreationResponse.body() as ProductDTO
+        val order = orderCreationResponse.body() as Order
+        val product = productCreationResponse.body() as Product
 
         // WHEN
         val result = client.put("/order/${order.id}/item") {
             contentType(ContentType.Application.Json)
-            setBody(ItemAddDTO(productId = product.id!!, amount = 2))
+            setBody(ItemAdd(productId = product.id!!, amount = 2))
         }
-        val finalOrder = result.body() as OrderDTO
+        val finalOrder = result.body() as Order
 
         // THEN
         assertEquals(1, finalOrder.items.size)

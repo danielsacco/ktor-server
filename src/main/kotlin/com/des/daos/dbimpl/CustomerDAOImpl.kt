@@ -1,11 +1,12 @@
-package com.des.dao.dbimpl
+package com.des.daos.dbimpl
 
-import com.des.dao.CustomerDAO
-import com.des.dao.DatabaseFactory
+import com.des.daos.CustomerDAO
+import com.des.daos.DatabaseFactory
 import com.des.models.Customer
 import com.des.models.Order
 import com.des.models.db.CustomerEntity
 import com.des.models.db.CustomersTable
+import java.util.*
 
 class CustomerDAOImpl(private val databaseFactory: DatabaseFactory) : CustomerDAO {
 
@@ -45,7 +46,7 @@ class CustomerDAOImpl(private val databaseFactory: DatabaseFactory) : CustomerDA
     }
 
     override suspend fun customerOrders(customerId: String): List<Order> = databaseFactory.dbQuery {
-        CustomerEntity.findById(customerId.toInt())
+        CustomerEntity.findById(UUID.fromString(customerId))
             ?.orders
             ?.map { it.toOrder() }
             ?: listOf()

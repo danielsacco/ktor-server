@@ -1,4 +1,4 @@
-package com.des.dao
+package com.des.daos
 
 interface DatabaseFactory {
 

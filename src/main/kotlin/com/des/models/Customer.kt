@@ -1,6 +1,8 @@
 package com.des.models
 
+import com.des.serializers.UUIDSerializer
 import kotlinx.serialization.Serializable
+import java.util.*
 
 @Serializable
 data class Customer(
@@ -8,5 +10,6 @@ data class Customer(
     val firstName: String,
     val lastName: String,
     val email: String,
-    val id: Int? = null,
+    @Serializable(with = UUIDSerializer::class)
+    val id: UUID? = null,
 )

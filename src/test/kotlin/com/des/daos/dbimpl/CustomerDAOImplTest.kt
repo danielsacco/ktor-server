@@ -1,8 +1,8 @@
-package com.des.dao.dbimpl
+package com.des.daos.dbimpl
 
-import com.des.dao.CustomerDAO
-import com.des.dao.DatabaseFactoryUnitTest
-import com.des.dao.OrderDAO
+import com.des.daos.CustomerDAO
+import com.des.daos.DatabaseFactoryUnitTest
+import com.des.daos.OrderDAO
 import com.des.models.Customer
 import com.des.models.Order
 import kotlinx.coroutines.test.runTest
@@ -25,13 +25,11 @@ class CustomerDAOImplTest : KoinTest {
     val koinTestRule = KoinTestRule.create {
         modules( module {
             single<CustomerDAO> { CustomerDAOImpl(databaseFactory) }
-            //single<ProductDAO> { ProductDAOImpl(databaseFactory) }
             single<OrderDAO> { OrderDAOImpl(databaseFactory) }
         })
     }
 
     private val customerDao : CustomerDAO by inject()
-    //private val productDao : ProductDAO by inject()
     private val orderDao : OrderDAO by inject()
 
     @Before

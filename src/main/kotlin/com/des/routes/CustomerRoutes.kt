@@ -1,6 +1,6 @@
 package com.des.routes
 
-import com.des.dao.CustomerDAO
+import com.des.daos.CustomerDAO
 import com.des.models.Customer
 import io.ktor.http.*
 import io.ktor.server.application.*

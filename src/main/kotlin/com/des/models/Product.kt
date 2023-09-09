@@ -1,8 +1,10 @@
 package com.des.models
 
-import com.des.serializer.BigDecimalSerializer
+import com.des.serializers.UUIDSerializer
+import com.des.serializers.BigDecimalSerializer
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
+import java.util.*
 
 @Serializable
 class Product(
@@ -10,4 +12,6 @@ class Product(
     val price: BigDecimal,
     val name: String,
     val description: String,
-    val id: Int? = null)
+    @Serializable(with = UUIDSerializer::class)
+    val id: UUID? = null,
+)

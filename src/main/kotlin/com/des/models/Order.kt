@@ -1,12 +1,15 @@
 package com.des.models
 
+import com.des.serializers.UUIDSerializer
 import kotlinx.serialization.Serializable
+import java.util.*
 
 @Serializable
 data class Order(
     val customerUserName: String,
     val items: List<Item> = listOf(),
-    val id: Int? = null,
+    @Serializable(with = UUIDSerializer::class)
+    val id: UUID? = null,
     val orderNumber: Int? = null
 )
 
@@ -14,11 +17,13 @@ data class Order(
 data class Item(
     val product: Product,
     val amount: Int,
-    val id: Int? = null
+    @Serializable(with = UUIDSerializer::class)
+    val id: UUID? = null
 )
 
 @Serializable
 data class ItemAdd(
-    val productId: Int,
+    @Serializable(with = UUIDSerializer::class)
+    val productId: UUID,
     val amount: Int
 )

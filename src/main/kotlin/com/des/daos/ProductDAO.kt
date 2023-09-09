@@ -1,6 +1,7 @@
-package com.des.dao
+package com.des.daos
 
 import com.des.models.Product
+import java.util.*
 
 interface ProductDAO {
 
@@ -8,5 +9,5 @@ interface ProductDAO {
 
     suspend fun products(): List<Product>
 
-    suspend fun findProduct(id: Int) : Product?
+    suspend fun findProduct(id: UUID) : Product?
 }

@@ -1,7 +1,7 @@
-package com.des.dao.dbimpl
+package com.des.daos.dbimpl
 
-import com.des.dao.DatabaseFactoryUnitTest
-import com.des.dao.ProductDAO
+import com.des.daos.DatabaseFactoryUnitTest
+import com.des.daos.ProductDAO
 import com.des.models.Product
 import kotlinx.coroutines.test.runTest
 import org.junit.After

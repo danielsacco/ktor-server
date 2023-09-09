@@ -1,4 +1,4 @@
-package com.des.dao
+package com.des.daos
 
 import com.des.models.db.CustomersTable
 import com.des.models.db.ItemsTable

@@ -40,10 +40,10 @@ class ProductRoutesTest {
             setBody(testProduct)
         }
         assertEquals(HttpStatusCode.Created, response.status)
-        assertEquals(
-            """{"price":"22.11","name":"Arroz x Kg.","description":"Cereal","id":1}""",
-            response.bodyAsText()
-        )
+        val result = response.body() as Product
+        assertEquals(testProduct.description, result.description)
+        assertEquals(testProduct.name, result.name)
+        assertEquals(testProduct.price, result.price)
     }
 
     @Test

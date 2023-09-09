@@ -1,6 +1,6 @@
 package com.des.routes
 
-import com.des.dao.OrderDAO
+import com.des.daos.OrderDAO
 import com.des.models.ItemAdd
 import com.des.models.Order
 import io.ktor.http.*
@@ -9,6 +9,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
+import java.util.*
 
 
 fun Route.orderRouting() {
@@ -27,7 +28,7 @@ fun Route.orderRouting() {
                 text ="Missing order ID",
                 status = HttpStatusCode.BadRequest)
             val item = call.receive<ItemAdd>()
-            val order = ordersDao.addItem(orderId = orderId.toInt(), productId = item.productId, amount = item.amount)
+            val order = ordersDao.addItem(orderId = UUID.fromString(orderId), productId = item.productId, amount = item.amount)
                 ?: return@put call.respondText(
                     text ="Order or Product not found",
                     status = HttpStatusCode.BadRequest)

@@ -1,11 +1,11 @@
-package com.des.dao.dbimpl
+package com.des.daos.dbimpl
 
-import com.des.dao.CustomerDAO
-import com.des.dao.DatabaseFactoryUnitTest
-import com.des.dao.OrderDAO
-import com.des.dao.ProductDAO
-import com.des.dao.dbimpl.CustomerDAOImplTest.Companion.testCustomer
-import com.des.dao.dbimpl.ProductDAOImplTest.Companion.testProduct
+import com.des.daos.CustomerDAO
+import com.des.daos.DatabaseFactoryUnitTest
+import com.des.daos.OrderDAO
+import com.des.daos.ProductDAO
+import com.des.daos.dbimpl.CustomerDAOImplTest.Companion.testCustomer
+import com.des.daos.dbimpl.ProductDAOImplTest.Companion.testProduct
 import com.des.models.Order
 import kotlinx.coroutines.test.runTest
 import org.junit.After

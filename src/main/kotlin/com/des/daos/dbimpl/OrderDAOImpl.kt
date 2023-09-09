@@ -1,11 +1,12 @@
-package com.des.dao.dbimpl
+package com.des.daos.dbimpl
 
-import com.des.dao.DatabaseFactory
-import com.des.dao.OrderDAO
+import com.des.daos.DatabaseFactory
+import com.des.daos.OrderDAO
 import com.des.models.Item
 import com.des.models.Order
 import com.des.models.db.*
 import java.time.LocalDateTime
+import java.util.*
 
 class OrderDAOImpl(private val databaseFactory: DatabaseFactory) : OrderDAO {
 
@@ -26,10 +27,10 @@ class OrderDAOImpl(private val databaseFactory: DatabaseFactory) : OrderDAO {
         newOrderEntity.toOrder()
     }
 
-    override suspend fun addItem(orderId: Int, productId: Int, amount: Int): Order? = databaseFactory.dbQuery {
+    override suspend fun addItem(orderId: UUID, productId: UUID, amount: Int): Order? = databaseFactory.dbQuery {
         OrderEntity.findById(orderId)?.let { orderEntity ->
 
-            ProductEntity.findById(productId.toInt())?.let { productEntity ->
+            ProductEntity.findById(productId)?.let { productEntity ->
                     ItemEntity.new {
                     this.orderEntity = orderEntity
                     this.productEntity = productEntity
@@ -40,7 +41,7 @@ class OrderDAOImpl(private val databaseFactory: DatabaseFactory) : OrderDAO {
         OrderEntity.findById(orderId)?.toOrder()
     }
 
-    override suspend fun findOrder(orderId: Int): Order? = databaseFactory.dbQuery {
+    override suspend fun findOrder(orderId: UUID): Order? = databaseFactory.dbQuery {
         OrderEntity.findById(orderId)?.toOrder()
     }
 }

@@ -46,10 +46,11 @@ class CustomerRoutesTest {
             setBody(testCustomer)
         }
         assertEquals(HttpStatusCode.Created, response.status)
-        assertEquals(
-            """{"username":"user","firstName":"name","lastName":"surname","email":"email","id":1}""",
-            response.bodyAsText()
-        )
+        val result = response.body() as Customer
+        assertEquals(testCustomer.username, result.username)
+        assertEquals(testCustomer.firstName, result.firstName)
+        assertEquals(testCustomer.lastName, result.lastName)
+        assertEquals(testCustomer.email, result.email)
     }
 
     @Test
@@ -66,10 +67,11 @@ class CustomerRoutesTest {
 
         val response = client.get("/customer/user")
         assertEquals(HttpStatusCode.OK, response.status)
-        assertEquals(
-            """{"username":"user","firstName":"name","lastName":"surname","email":"email","id":1}""",
-            response.bodyAsText()
-        )
+        val result = response.body() as Customer
+        assertEquals(testCustomer.username, result.username)
+        assertEquals(testCustomer.firstName, result.firstName)
+        assertEquals(testCustomer.lastName, result.lastName)
+        assertEquals(testCustomer.email, result.email)
     }
 
     @Test

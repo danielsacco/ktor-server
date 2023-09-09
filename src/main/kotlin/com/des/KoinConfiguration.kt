@@ -1,9 +1,9 @@
 package com.des
 
-import com.des.dao.*
-import com.des.dao.dbimpl.CustomerDAOImpl
-import com.des.dao.dbimpl.OrderDAOImpl
-import com.des.dao.dbimpl.ProductDAOImpl
+import com.des.daos.*
+import com.des.daos.dbimpl.CustomerDAOImpl
+import com.des.daos.dbimpl.OrderDAOImpl
+import com.des.daos.dbimpl.ProductDAOImpl
 import io.ktor.server.application.*
 import io.ktor.server.config.*
 import org.koin.dsl.module

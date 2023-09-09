@@ -1,6 +1,5 @@
 package com.des.models.db
 
-import com.des.models.Order
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -22,10 +21,4 @@ class OrderEntity(id: EntityID<Int>) : IntEntity(id) {
     val items by ItemEntity referrersOn ItemsTable.order
 }
 
-fun OrderEntity.toDTO(): Order = Order(
-    id = id.value,
-    orderNumber = orderNumber,
-    items = items.map { it.toDTO() },
-    customerUserName = customerEntity.username,
-)
 

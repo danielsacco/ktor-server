@@ -6,17 +6,16 @@ import com.des.models.Customer
 import com.des.models.Order
 import com.des.models.db.CustomerEntity
 import com.des.models.db.CustomersTable
-import com.des.models.db.toDTO
 
 class CustomerDAOImpl(private val databaseFactory: DatabaseFactory) : CustomerDAO {
 
     override suspend fun customers(): List<Customer> = databaseFactory.dbQuery {
-        CustomerEntity.all().map { it.toDTO() }
+        CustomerEntity.all().map { it.toCustomer() }
     }
     
     override suspend fun findCustomerByUsername(username: String): Customer? = databaseFactory.dbQuery {
         CustomerEntity.find { CustomersTable.username eq username }
-            .singleOrNull()?.toDTO()
+            .singleOrNull()?.toCustomer()
     }
     
     override suspend fun createCustomer(customer: Customer): Customer? = databaseFactory.dbQuery {
@@ -29,7 +28,7 @@ class CustomerDAOImpl(private val databaseFactory: DatabaseFactory) : CustomerDA
             email = customer.email
             username = customer.username
         }
-        newCustomerEntity.toDTO()
+        newCustomerEntity.toCustomer()
     }
 
     override suspend fun deleteCustomer(username: String): Boolean = databaseFactory.dbQuery {
@@ -48,7 +47,15 @@ class CustomerDAOImpl(private val databaseFactory: DatabaseFactory) : CustomerDA
     override suspend fun customerOrders(customerId: String): List<Order> = databaseFactory.dbQuery {
         CustomerEntity.findById(customerId.toInt())
             ?.orders
-            ?.map { it.toDTO() }
+            ?.map { it.toOrder() }
             ?: listOf()
     }
 }
+
+fun CustomerEntity.toCustomer() = Customer(
+    firstName = firstName,
+    lastName = lastName,
+    email = email,
+    username = username,
+    id = id.value,
+)

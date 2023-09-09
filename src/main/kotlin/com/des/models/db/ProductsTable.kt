@@ -1,6 +1,5 @@
 package com.des.models.db
 
-import com.des.models.Product
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -18,10 +17,3 @@ class ProductEntity(id: EntityID<Int>) : IntEntity(id) {
     var name by ProductsTable.name
     var description by ProductsTable.description
 }
-
-fun ProductEntity.toDTO() = Product(
-    price = price,
-    name = name,
-    description = description,
-    id = id.value
-)

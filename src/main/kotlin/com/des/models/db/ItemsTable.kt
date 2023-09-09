@@ -1,6 +1,5 @@
 package com.des.models.db
 
-import com.des.models.Item
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -18,9 +17,3 @@ class ItemEntity(id: EntityID<Int>) : IntEntity(id) {
     var productEntity by ProductEntity referencedOn ItemsTable.product
     var quantity by ItemsTable.quantity
 }
-
-fun ItemEntity.toDTO() : Item = Item(
-    product = this.productEntity.toDTO(),
-    amount = this.quantity,
-    id = this.id.value
-)

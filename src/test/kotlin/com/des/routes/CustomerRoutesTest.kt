@@ -29,7 +29,7 @@ class CustomerRoutesTest {
 
     @Test
     fun `When queried for customers Then am empty list is obtained`() = testApplication {
-        val response = client.get("/customer")
+        val response = client.get("/customers")
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals("[]", response.bodyAsText())
     }
@@ -41,7 +41,7 @@ class CustomerRoutesTest {
                 json()
             }
         }
-        val response = client.post("/customer") {
+        val response = client.post("/customers") {
             contentType(ContentType.Application.Json)
             setBody(testCustomer)
         }
@@ -60,12 +60,12 @@ class CustomerRoutesTest {
                 json()
             }
         }
-        client.post("/customer") {
+        client.post("/customers") {
             contentType(ContentType.Application.Json)
             setBody(testCustomer)
         }
 
-        val response = client.get("/customer/user")
+        val response = client.get("/customers/user")
         assertEquals(HttpStatusCode.OK, response.status)
         val result = response.body() as Customer
         assertEquals(testCustomer.username, result.username)
@@ -82,7 +82,7 @@ class CustomerRoutesTest {
             }
         }
 
-        val response = client.get("/customer/non-existing-user")
+        val response = client.get("/customers/non-existing-user")
         assertEquals(HttpStatusCode.NotFound, response.status)
         assertEquals(
             "No customer with username non-existing-user",
@@ -97,13 +97,13 @@ class CustomerRoutesTest {
                 json()
             }
         }
-        val creationResponse = client.post("/customer") {
+        val creationResponse = client.post("/customers") {
             contentType(ContentType.Application.Json)
             setBody(testCustomer)
         }
         assertEquals(HttpStatusCode.Created, creationResponse.status)
 
-        val response = client.delete("/customer/${testCustomer.username}")
+        val response = client.delete("/customers/${testCustomer.username}")
         assertEquals(HttpStatusCode.Accepted, response.status)
     }
 
@@ -114,20 +114,20 @@ class CustomerRoutesTest {
                 json()
             }
         }
-        val customerCreationResponse = client.post("/customer") {
+        val customerCreationResponse = client.post("/customers") {
             contentType(ContentType.Application.Json)
             setBody(testCustomer)
         }
         assertEquals(HttpStatusCode.Created, customerCreationResponse.status)
 
-        val orderCreationResponse = client.post("/order") {
+        val orderCreationResponse = client.post("/orders") {
             contentType(ContentType.Application.Json)
             setBody(Order(customerUserName = testCustomer.username))
         }
         assertEquals(HttpStatusCode.Created, orderCreationResponse.status)
 
         val customer = customerCreationResponse.body() as Customer
-        val response = client.get("/customer/${customer.id}/orders")
+        val response = client.get("/customers/${customer.id}/orders")
         val orders = response.body() as List<Order>
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals(1, orders.size)

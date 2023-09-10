@@ -5,7 +5,7 @@ import java.util.*
 
 interface OrderDAO {
 
-    suspend fun orders() : List<Order>
+    suspend fun orders(page: Int = 1, pageSize: Int = 100) : List<Order>
 
     suspend fun createOrder(order: Order) : Order
 

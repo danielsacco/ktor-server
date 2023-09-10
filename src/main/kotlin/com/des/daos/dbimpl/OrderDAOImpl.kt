@@ -10,8 +10,11 @@ import java.util.*
 
 class OrderDAOImpl(private val databaseFactory: DatabaseFactory) : OrderDAO {
 
-    override suspend fun orders(): List<Order> = databaseFactory.dbQuery {
-        OrderEntity.all().map { it.toOrder() }
+    override suspend fun orders(page: Int, pageSize: Int): List<Order> = databaseFactory.dbQuery {
+        val offset = pageSize * (page - 1)
+        OrderEntity.all()
+            .limit(pageSize, offset.toLong())
+            .map { it.toOrder() }
     }
 
     override suspend fun createOrder(order: Order): Order = databaseFactory.dbQuery {

@@ -11,10 +11,19 @@ import org.koin.ktor.ext.inject
 
 fun Route.productRouting() {
     val productDao by inject<ProductDAO>()
+    val defaultPageSize = environment?.config?.propertyOrNull("pagination.pageSize")
+        ?.getString()?.toIntOrNull() ?: 20
+    val maxPageSize = environment?.config?.propertyOrNull("pagination.maxPageSize")
+        ?.getString()?.toIntOrNull() ?: 100
 
-    route("/product") {
+    route("/products") {
         get {
-            val products = productDao.products()
+            val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 1
+            val pageSize = minOf(
+                call.request.queryParameters["pageSize"]?.toIntOrNull() ?: defaultPageSize,
+                maxPageSize
+            )
+            val products = productDao.products(page = page, pageSize = pageSize)
             call.respond(products)
         }
         post {
@@ -23,5 +32,4 @@ fun Route.productRouting() {
         }
 
     }
-
 }

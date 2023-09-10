@@ -6,12 +6,16 @@ import com.des.models.Customer
 import com.des.models.Order
 import com.des.models.db.CustomerEntity
 import com.des.models.db.CustomersTable
+import com.des.models.db.ProductEntity
 import java.util.*
 
 class CustomerDAOImpl(private val databaseFactory: DatabaseFactory) : CustomerDAO {
 
-    override suspend fun customers(): List<Customer> = databaseFactory.dbQuery {
-        CustomerEntity.all().map { it.toCustomer() }
+    override suspend fun customers(page: Int, pageSize: Int): List<Customer> = databaseFactory.dbQuery {
+        val offset = pageSize * (page - 1)
+        CustomerEntity.all()
+            .limit(pageSize, offset.toLong())
+            .map { it.toCustomer() }
     }
     
     override suspend fun findCustomerByUsername(username: String): Customer? = databaseFactory.dbQuery {

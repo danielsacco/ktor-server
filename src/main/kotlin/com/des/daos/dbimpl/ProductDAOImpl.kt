@@ -17,8 +17,11 @@ class ProductDAOImpl(private val databaseFactory: DatabaseFactory) : ProductDAO 
         newProductEntity.toProduct()
     }
 
-    override suspend fun products(): List<Product> = databaseFactory.dbQuery {
-        ProductEntity.all().map { it.toProduct() }
+    override suspend fun products(page: Int, pageSize: Int): List<Product> = databaseFactory.dbQuery {
+        val offset = pageSize * (page - 1)
+        ProductEntity.all()
+            .limit(pageSize, offset.toLong())
+            .map { it.toProduct() }
     }
 
     override suspend fun findProduct(id: UUID) : Product? = databaseFactory.dbQuery {

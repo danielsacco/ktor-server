@@ -5,7 +5,7 @@ import com.des.models.Order
 
 interface CustomerDAO {
 
-    suspend fun customers(): List<Customer>
+    suspend fun customers(page: Int = 1, pageSize: Int = 100): List<Customer>
 
     suspend fun findCustomerByUsername(username: String): Customer?
 

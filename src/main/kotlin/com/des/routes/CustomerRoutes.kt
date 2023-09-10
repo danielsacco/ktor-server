@@ -13,10 +13,19 @@ import org.koin.ktor.ext.inject
 fun Route.customerRouting() {
 
     val customerDao by inject<CustomerDAO>()
+    val defaultPageSize = environment?.config?.propertyOrNull("pagination.pageSize")
+        ?.getString()?.toIntOrNull() ?: 20
+    val maxPageSize = environment?.config?.propertyOrNull("pagination.maxPageSize")
+        ?.getString()?.toIntOrNull() ?: 100
 
-    route("/customer") {
+    route("/customers") {
         get {
-            call.respond(customerDao.customers())
+            val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 1
+            val pageSize = minOf(
+                call.request.queryParameters["pageSize"]?.toIntOrNull() ?: defaultPageSize,
+                maxPageSize
+            )
+            call.respond(customerDao.customers(page = page, pageSize = pageSize))
         }
         get("{username?}") {
             val username = call.parameters["username"] ?: return@get call.respondText(

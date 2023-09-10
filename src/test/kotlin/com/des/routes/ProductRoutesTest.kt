@@ -23,7 +23,7 @@ class ProductRoutesTest {
 
     @Test
     fun `When queried for products on an empty database Then am empty list is obtained`() = testApplication {
-        val response = client.get("/product")
+        val response = client.get("/products")
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals("[]", response.bodyAsText())
     }
@@ -35,7 +35,7 @@ class ProductRoutesTest {
                 json()
             }
         }
-        val response = client.post("/product") {
+        val response = client.post("/products") {
             contentType(ContentType.Application.Json)
             setBody(testProduct)
         }
@@ -53,16 +53,16 @@ class ProductRoutesTest {
                 json()
             }
         }
-        client.post("/product") {
+        client.post("/products") {
             contentType(ContentType.Application.Json)
             setBody(testProduct)
         }
-        client.post("/product") {
+        client.post("/products") {
             contentType(ContentType.Application.Json)
             setBody(anotherProduct)
         }
 
-        val response = client.get("/product")
+        val response = client.get("/products")
         assertEquals(HttpStatusCode.OK, response.status)
         val result = response.body() as List<Product>
         assertEquals(2, result.size)

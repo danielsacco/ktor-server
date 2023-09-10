@@ -14,10 +14,19 @@ import java.util.*
 
 fun Route.orderRouting() {
     val ordersDao by inject<OrderDAO>()
+    val defaultPageSize = environment?.config?.propertyOrNull("pagination.pageSize")
+        ?.getString()?.toIntOrNull() ?: 20
+    val maxPageSize = environment?.config?.propertyOrNull("pagination.maxPageSize")
+        ?.getString()?.toIntOrNull() ?: 100
 
-    route("/order") {
+    route("/orders") {
         get {
-            call.respond(ordersDao.orders())
+            val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 1
+            val pageSize = minOf(
+                call.request.queryParameters["pageSize"]?.toIntOrNull() ?: defaultPageSize,
+                maxPageSize
+            )
+            call.respond(ordersDao.orders(page = page, pageSize = pageSize))
         }
         post {
             val order = this.call.receive<Order>()

@@ -25,7 +25,7 @@ class OrderRoutesTest {
 
     @Test
     fun `When queried for orders Then am empty list is obtained`() = testApplication {
-        val response = client.get("/order")
+        val response = client.get("/orders")
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals("[]", response.bodyAsText())
     }
@@ -37,13 +37,13 @@ class OrderRoutesTest {
                 json()
             }
         }
-        val customerCreationResponse = client.post("/customer") {
+        val customerCreationResponse = client.post("/customers") {
             contentType(ContentType.Application.Json)
             setBody(testCustomer)
         }
         assertEquals(HttpStatusCode.Created, customerCreationResponse.status)
 
-        val response = client.post("/order") {
+        val response = client.post("/orders") {
             contentType(ContentType.Application.Json)
             setBody(Order(customerUserName = testCustomer.username))
         }
@@ -61,17 +61,17 @@ class OrderRoutesTest {
                 json()
             }
         }
-        val productCreationResponse = client.post("/product") {
+        val productCreationResponse = client.post("/products") {
             contentType(ContentType.Application.Json)
             setBody(testProduct)
         }
-        val customerCreationResponse = client.post("/customer") {
+        val customerCreationResponse = client.post("/customers") {
             contentType(ContentType.Application.Json)
             setBody(testCustomer)
         }
         assertEquals(HttpStatusCode.Created, customerCreationResponse.status)
 
-        val orderCreationResponse = client.post("/order") {
+        val orderCreationResponse = client.post("/orders") {
             contentType(ContentType.Application.Json)
             setBody(Order(customerUserName = testCustomer.username))
         }
@@ -81,7 +81,7 @@ class OrderRoutesTest {
         val product = productCreationResponse.body() as Product
 
         // WHEN
-        val result = client.put("/order/${order.id}/item") {
+        val result = client.put("/orders/${order.id}/item") {
             contentType(ContentType.Application.Json)
             setBody(ItemAdd(productId = product.id!!, amount = 2))
         }

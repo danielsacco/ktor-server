@@ -38,6 +38,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("io.ktor:ktor-server-content-negotiation-jvm")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
+    implementation("io.ktor:ktor-server-cors")
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
     // Koin for Dependency Injection
@@ -60,6 +61,8 @@ dependencies {
     implementation("io.insert-koin:koin-ktor:$koin_version")
     // SLF4J Logger
     implementation("io.insert-koin:koin-logger-slf4j:$koin_version")
+
+    implementation("io.ktor:ktor-server-swagger:$ktor_version")
 
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")

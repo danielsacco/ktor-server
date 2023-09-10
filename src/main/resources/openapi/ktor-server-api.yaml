@@ -1,0 +1,211 @@
+openapi: 3.0.0
+info:
+  title: ktor-server
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8080
+tags:
+  - name: Customers
+  - name: Orders
+  - name: Products
+paths:
+  /customers:
+    get:
+      tags:
+        - Customers
+      summary: Get Customers
+      parameters:
+        - name: pageSize
+          in: query
+          description: Limits the number of customers returned
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: Specifies the page number of the customers to be displayed
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+    post:
+      tags:
+        - Customers
+      summary: Create Customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          description: Successfully created customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+  /customers/{userId}:
+    get:
+      tags:
+        - Customers
+      summary: Find Customer
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: "uuid"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+  /customers/{customerId}/orders:
+    get:
+      tags:
+        - Customers
+      summary: Customer Orders
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: "uuid"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /orders:
+    get:
+      tags:
+        - Orders
+      summary: Get Orders
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Orders
+      summary: Create Order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                customerUserName: johndoe
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /orders/{orderId}:
+    get:
+      tags:
+        - Orders
+      summary: Find Order
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: "uuid"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /orders/{orderId}/item:
+    put:
+      tags:
+        - Orders
+      summary: Add Item to Order
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: "uuid"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                productId: 1
+                amount: 1
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /products:
+    get:
+      tags:
+        - Products
+      summary: Get Products
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Products
+      summary: Create Product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                price: '123.55'
+                name: Agua 10L
+                description: Para la resaca
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+
+components:
+  schemas:
+    Customer:
+      type: object
+      required:
+        - username
+        - firstName
+        - lastName
+        - email
+      properties:
+        customerId:
+          type: string
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+      example:
+        username: johndoe
+        firstName: John
+        lastName: Doe
+        email: john.doe@mail.com
+

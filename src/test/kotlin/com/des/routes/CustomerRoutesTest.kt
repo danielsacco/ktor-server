@@ -1,13 +1,12 @@
 package com.des.routes
 
+import com.des.createClientWithJson
 import com.des.models.Customer
 import com.des.models.Order
 import io.ktor.client.call.*
-import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.testing.*
 import org.junit.After
 import org.junit.Test
@@ -36,11 +35,7 @@ class CustomerRoutesTest {
 
     @Test
     fun `When posting a customer Then it is created`() = testApplication {
-        val client = createClient {
-            install(ContentNegotiation) {
-                json()
-            }
-        }
+        val client = createClientWithJson()
         val response = client.post("/customers") {
             contentType(ContentType.Application.Json)
             setBody(testCustomer)
@@ -55,11 +50,7 @@ class CustomerRoutesTest {
 
     @Test
     fun `When querying an existing customer by name Then it is found`() = testApplication {
-        val client = createClient {
-            install(ContentNegotiation) {
-                json()
-            }
-        }
+        val client = createClientWithJson()
         client.post("/customers") {
             contentType(ContentType.Application.Json)
             setBody(testCustomer)
@@ -76,11 +67,7 @@ class CustomerRoutesTest {
 
     @Test
     fun `When querying a non-existing customer by name Then an error is returned`() = testApplication {
-        val client = createClient {
-            install(ContentNegotiation) {
-                json()
-            }
-        }
+        val client = createClientWithJson()
 
         val response = client.get("/customers/non-existing-user")
         assertEquals(HttpStatusCode.NotFound, response.status)
@@ -92,11 +79,7 @@ class CustomerRoutesTest {
 
     @Test
     fun `When deleting an existing customer by name Then it is removed`() = testApplication {
-        val client = createClient {
-            install(ContentNegotiation) {
-                json()
-            }
-        }
+        val client = createClientWithJson()
         val creationResponse = client.post("/customers") {
             contentType(ContentType.Application.Json)
             setBody(testCustomer)
@@ -109,11 +92,7 @@ class CustomerRoutesTest {
 
     @Test
     fun `When querying orders of an existing customer by name Then they are retrieved`() = testApplication {
-        val client = createClient {
-            install(ContentNegotiation) {
-                json()
-            }
-        }
+        val client = createClientWithJson()
         val customerCreationResponse = client.post("/customers") {
             contentType(ContentType.Application.Json)
             setBody(testCustomer)

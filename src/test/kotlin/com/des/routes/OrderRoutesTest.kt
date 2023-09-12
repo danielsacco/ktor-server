@@ -1,5 +1,6 @@
 package com.des.routes
 
+import com.des.createClientWithJson
 import com.des.models.ItemAdd
 import com.des.models.Order
 import com.des.models.Product
@@ -32,11 +33,7 @@ class OrderRoutesTest {
 
     @Test
     fun `When posting an order Then it is created`() = testApplication {
-        val client = createClient {
-            install(ContentNegotiation) {
-                json()
-            }
-        }
+        val client = createClientWithJson()
         val customerCreationResponse = client.post("/customers") {
             contentType(ContentType.Application.Json)
             setBody(testCustomer)
@@ -56,11 +53,7 @@ class OrderRoutesTest {
     @Test
     fun `When adding an item to an order Then it is created`() = testApplication {
         // GIVEN
-        val client = createClient {
-            install(ContentNegotiation) {
-                json()
-            }
-        }
+        val client = createClientWithJson()
         val productCreationResponse = client.post("/products") {
             contentType(ContentType.Application.Json)
             setBody(testProduct)

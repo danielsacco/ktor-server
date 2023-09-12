@@ -1,5 +1,6 @@
 package com.des.routes;
 
+import com.des.createClientWithJson
 import com.des.models.Product
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -30,11 +31,7 @@ class ProductRoutesTest {
 
     @Test
     fun `When posting a product Then it is created`() = testApplication {
-        val client = createClient {
-            install(ContentNegotiation) {
-                json()
-            }
-        }
+        val client = createClientWithJson()
         val response = client.post("/products") {
             contentType(ContentType.Application.Json)
             setBody(testProduct)
@@ -48,11 +45,7 @@ class ProductRoutesTest {
 
     @Test
     fun `When queried for products Then the existing products are retrieved`() = testApplication {
-        val client = createClient {
-            install(ContentNegotiation) {
-                json()
-            }
-        }
+        val client = createClientWithJson()
         client.post("/products") {
             contentType(ContentType.Application.Json)
             setBody(testProduct)

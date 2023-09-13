@@ -9,8 +9,10 @@ val hikaricp_version: String by project
 val ehcache_version: String by project
 val koin_ktor_version: String by project
 val koin_ksp_version: String by project
+val postgresql_version: String by project
 
 plugins {
+    application
     kotlin("jvm") version "1.9.10"
     id("io.ktor.plugin") version "2.3.4"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
@@ -56,6 +58,7 @@ dependencies {
     implementation("com.h2database:h2:$h2_version")
     implementation("com.zaxxer:HikariCP:$hikaricp_version")
     implementation("org.ehcache:ehcache:$ehcache_version")
+    implementation("org.postgresql:postgresql:$postgresql_version")
 
     // Koin for Ktor
     implementation("io.insert-koin:koin-ktor:$koin_version")
